@@ -19,7 +19,7 @@ export function HomeMain() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <div>
-            I'm{" "}
+            {"I'm "}
             <span className="font-black text-orange-400 font-mono">RieN7</span>
           </div>
         </motion.div>
