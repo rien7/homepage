@@ -1,6 +1,6 @@
 import { BlogTitle } from "@/app/_components/VTComponents";
 import { BlogItem } from "@/app/_components/home_page/List";
-import { MDXRemote } from "next-mdx-remote-client/rsc";
+import { evaluate } from "next-mdx-remote-client/rsc";
 import { Suspense } from "react";
 
 async function ContentPage({ slug }: { slug: string }) {
@@ -9,7 +9,13 @@ async function ContentPage({ slug }: { slug: string }) {
     next: { revalidate: 60 },
   });
   const markdown = await res.text();
-  return <MDXRemote source={markdown} />;
+  const { content } = await evaluate({
+    source: markdown,
+    options: {
+      parseFrontmatter: true,
+    },
+  });
+  return <div>{content}</div>;
 }
 
 export default async function Page({
@@ -19,7 +25,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const res = await fetch("https://blog.zrien7.workers.dev/blog/list", {
-    cache: "force-cache",
+    cache: "no-cache",
   });
   const lists = await res.json();
   const title = lists.filter((item: BlogItem) => item.id === slug)[0].name;
@@ -36,7 +42,6 @@ export default async function Page({
 }
 
 export async function generateStaticParams() {
-  // return [{ slug: "hello-world.mdx" }];
   const res = await fetch("https://blog.zrien7.workers.dev/blog/list");
   const lists = await res.json();
   const slugs = lists.reduce(

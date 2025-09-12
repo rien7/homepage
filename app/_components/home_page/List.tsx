@@ -4,7 +4,10 @@ export type BlogItem = { id: string; name: string; date: number };
 
 export async function BlogList() {
   const data = await fetch("https://blog.zrien7.workers.dev/blog/list", {
-    cache: "force-cache",
+    cache: "reload",
+    next: {
+      revalidate: 60,
+    },
   });
   const blogs: BlogItem[] = await data.json();
 
