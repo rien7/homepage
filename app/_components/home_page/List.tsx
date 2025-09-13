@@ -1,6 +1,11 @@
 import { BlogLink } from "../VTComponents";
 
-export type BlogItem = { id: string; name: string; date: number };
+export type BlogItem = {
+  id: string;
+  name: string;
+  date: number;
+  update_date: number;
+};
 
 export async function BlogList() {
   const data = await fetch("https://blog.zrien7.workers.dev/blog/list", {

@@ -2,10 +2,18 @@
 import Link from "next/link";
 import { unstable_ViewTransition as ViewTransition } from "react";
 
-export function BlogTitle({ id, title }: { id: string; title: string }) {
+export function BlogTitle({
+  id,
+  title,
+  className,
+}: {
+  id: string;
+  title: string;
+  className?: string;
+}) {
   return (
     <ViewTransition name={`blog-title-${id.replace(/[^a-zA-Z0-9_-]/g, "-")}`}>
-      <div className="text-xl font-bold">{title}</div>
+      <div className={className}>{title}</div>
     </ViewTransition>
   );
 }
@@ -20,6 +28,20 @@ export function BlogLink({ id, title }: { id: string; title: string }) {
       >
         {title}
       </Link>
+    </ViewTransition>
+  );
+}
+
+export function BlogName({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string;
+}) {
+  return (
+    <ViewTransition name="blog-name">
+      <span className={className}>{name}</span>
     </ViewTransition>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import Hello from "./Hello";
+import { BlogName } from "../VTComponents";
 
 export function HomeMain() {
   return (
@@ -20,7 +21,10 @@ export function HomeMain() {
         >
           <div>
             {"I'm "}
-            <span className="font-black text-orange-400 font-mono">RieN7</span>
+            <BlogName
+              className="font-black text-orange-400 font-mono"
+              name="RieN7"
+            />
           </div>
         </motion.div>
         <motion.div
