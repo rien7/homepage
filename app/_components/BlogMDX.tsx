@@ -23,7 +23,7 @@ export function BlogMDX({ markdown }: { markdown: string }) {
       }
     };
     parse();
-  }, []);
+  }, [markdown]);
 
   return (
     <>

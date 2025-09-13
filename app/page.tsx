@@ -1,34 +1,25 @@
+import * as motion from "motion/react-client";
 import { BlogList } from "./_components/home_page/List";
 import { HomeMain } from "./_components/home_page/Main";
 
+export const revalidate = 60;
 export default function Home() {
   return (
-    <div className="flex items-center justify-center min-h-screen min-w-screen">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen min-w-screen gap-4">
       <HomeMain />
-      <div className="slide-in">
+      <motion.div
+        className="[--x:0] md:[--x:200px] [--y:20px] md:[--y:0]"
+        initial={{
+          opacity: 0,
+          x: "var(--x)",
+          y: "var(--y)",
+          filter: "blur(4px)",
+        }}
+        animate={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
+        transition={{ delay: 1.2, duration: 0.3 }}
+      >
         <BlogList />
-      </div>
-      <style>
-        {`
-          @keyframes slideIn {
-            from {
-              opacity: 0;
-              transform: translateX(200px);
-              filter: blur(4px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-              filter: blur(0);
-            }
-          }
-          .slide-in {
-            opacity: 0;
-            animation: slideIn 0.6s ease forwards;
-            animation-delay: 1.2s;
-          }
-        `}
-      </style>
+      </motion.div>
     </div>
   );
 }

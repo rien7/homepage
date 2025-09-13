@@ -1,10 +1,7 @@
 import { BlogMDX } from "@/app/_components/BlogMDX";
 import { BlogTitle } from "@/app/_components/VTComponents";
 import { BlogItem } from "@/app/_components/home_page/List";
-import { evaluate } from "next-mdx-remote-client/rsc";
 import { Suspense } from "react";
-
-export const runtime = "edge";
 
 async function ContentPage({ slug }: { slug: string }) {
   const url = `https://raw.githubusercontent.com/rien7/blog/main/${slug}`;
@@ -22,7 +19,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const res = await fetch("https://blog.zrien7.workers.dev/blog/list", {
-    cache: "no-cache",
+    cache: "force-cache",
   });
   const lists = await res.json();
   const title = lists.filter((item: BlogItem) => item.id === slug)[0].name;
@@ -38,12 +35,14 @@ export default async function Page({
   );
 }
 
-// export async function generateStaticParams() {
-//   const res = await fetch("https://blog.zrien7.workers.dev/blog/list");
-//   const lists = await res.json();
-//   const slugs = lists.reduce(
-//     (prev: BlogItem[], l: BlogItem) => [...prev, { slug: l.id }],
-//     []
-//   );
-//   return slugs;
-// }
+export async function generateStaticParams() {
+  const res = await fetch("https://blog.zrien7.workers.dev/blog/list", {
+    cache: "force-cache",
+  });
+  const lists = await res.json();
+  const slugs = lists.reduce(
+    (prev: BlogItem[], l: BlogItem) => [...prev, { slug: l.id }],
+    []
+  );
+  return slugs;
+}

@@ -4,7 +4,7 @@ import Hello from "./Hello";
 
 export function HomeMain() {
   return (
-    <div className="flex flex-col select-none">
+    <motion.div layout="position" className="flex flex-col select-none">
       <div className="font-serif text-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
@@ -36,6 +36,6 @@ export function HomeMain() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
