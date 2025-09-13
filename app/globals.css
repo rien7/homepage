@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@source inline("{from,to}-{rose,pink,fuchsia,purple,violet,indigo,blue,sky,cyan,teal,emerald,green,lime,yellow,amber,orange,red}-{100,300}/30");
+
 
 :root {
   --background: var(--color-zinc-50);
